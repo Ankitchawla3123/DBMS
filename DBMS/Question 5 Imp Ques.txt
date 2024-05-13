@@ -2,9 +2,27 @@ Question 5:
 
 (A)
 
-CREATE TABLE Worker (ID INT PRIMARY KEY,Name VARCHAR(100),Salary DECIMAL(10, 2),JoiningDate DATE,DepartmentNo INT,FOREIGN KEY (DepartmentNo) REFERENCES Department(DepNo));
+-- Create the Department table first without the foreign key constraint
+CREATE TABLE Department (
+    DepNo INT PRIMARY KEY,
+    DName VARCHAR(100),
+    Location VARCHAR(100),
+    MgrID INT
+);
 
-CREATE TABLE Department (DepNo INT PRIMARY KEY,DName VARCHAR(100),Location VARCHAR(100),MgrID INT,FOREIGN KEY (MgrID) REFERENCES Worker(ID));
+-- Create the Worker table
+CREATE TABLE Worker (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Salary DECIMAL(10, 2),
+    JoiningDate DATE,
+    DepartmentNo INT,
+    FOREIGN KEY (DepartmentNo) REFERENCES Department(DepNo)
+);
+
+-- Alter the Department table to add the foreign key constraint
+ALTER TABLE Department
+ADD FOREIGN KEY (MgrID) REFERENCES Worker(ID);
 
 (B)
 
